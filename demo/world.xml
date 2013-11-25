@@ -1,0 +1,25 @@
+//只有一个world
+//只有一种space
+//只有一种节点node
+//只有一种style，无继承，只可组合，描述node如何被绘制，不涉及postion,scale,rotation
+//只有一种坐标变换transform：postion,scale,rotation
+//可以有定时回调
+//可以有绑定事件
+
+<world>
+	<space id="A" size="800*600*200" position="200,100,0">
+		<node id="a" style="a menu" transform="transform_a" timer="timer_a" action="action_a">
+			<node id="a1" style="a1 menu" transform="transform_a1" timer="timer_a1" action="action_a1">
+
+			</node>
+			<node id="a2" style="a2 menu" transform="transform_a2" timer="timer_a2" action="action_a2">
+
+			</node>
+		</node>
+		<node id="b" style="b menu" transform="transform_b" timer="timer_b" action="action_b">
+
+		</node>
+	</space>
+	<space id="B" size="800*600*200" position="200,100,0">
+	</space>
+</world>
