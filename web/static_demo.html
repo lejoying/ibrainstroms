@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+
+
+<head>
+
+
+    <style type="text/css">
+
+        body {
+            display: block;
+            margin: 0px;
+        }
+
+        header {
+            background: #0099cd;
+            color: #ffffff;
+            height: 50px;
+            position: relative;
+        }
+
+        h1 {
+            display: block;
+            font-size: 2em;
+            webkit-margin-before: 0px;
+            -webkit-margin-after: 0px;
+            -webkit-margin-start: 0px;
+            -webkit-margin-end: 0px;
+            font-weight: bold;
+        }
+
+        .title {
+            display: inline;
+            font-size: 2em;
+            font-weight: bold;
+            height: 50px;
+            line-height: 50px;
+
+            position: absolute;
+        }
+
+        .logo {
+            height: 50px;
+        }
+
+        .myCanvas {
+            border: 1px solid #000000;
+        }
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<header>
+
+    <img class="logo hide" src="static/images/images.jpg"></img>
+
+    <div class="title">
+        奇思妙想
+    </div>
+</header>
+<canvas class="myCanvas" id="myCanvas">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+
+<script src="\static\js\mapdata.js"></script>
+
+
+</body>
+<script>
+    var h = window.innerHeight - 52 - 3;
+    var w = window.innerWidth - 0 - 2;
+    var c = document.getElementById("myCanvas");
+    c.setAttribute('width', w);
+    c.setAttribute('height', h);
+
+
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(0, 0, 150, 75);
+
+    var test1 = document.getElementById("test1");
+    c.oninput = cancasInput;
+    function cancasInput() {
+        console.log("input");
+    }
+
+    c.onclick = cancasClick;
+    function cancasClick() {
+        console.log("onclick");
+    }
+
+    var image = new Image();
+    image.src = "/static/images/map.jpg";
+
+
+    window.onload = resizeWindow;
+    window.onresize = resizeWindow;
+    function resizeWindow() {
+        //console.log(window.innerHeight,window.innerWidth);
+        var h = window.innerHeight - 52 - 3;
+        var w = window.innerWidth - 0 - 2;
+        var c = document.getElementById("myCanvas");
+        c.setAttribute('width', w);
+        c.setAttribute('height', h);
+        ctx.fillStyle = "#FF0000";
+
+        ctx.drawImage(image, 300, 80, 800, 506);
+
+
+    }
+
+</script>
+</html>

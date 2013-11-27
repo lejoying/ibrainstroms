@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="chrome=IE8">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<title>Canvas Rounded Rectangle Demo</title>
+<script src="\static\js\fishcomponent.js"></script>
+
+	<script>
+		var ctx = null; // global variable 2d context
+		var imageTexture = null;
+		window.onload = function() {
+			var canvas = document.getElementById("text_canvas");
+			console.log(canvas.parentNode.clientWidth);
+			canvas.width = canvas.parentNode.clientWidth;
+			canvas.height = 500;
+			
+			if (!canvas.getContext) {
+			    console.log("Canvas not supported. Please install a HTML5 compatible browser.");
+			    return;
+			}
+			var context = canvas.getContext('2d');
+			context.strokeStyle="#0099cd";
+			context.lineWidth =5;
+			//context.fillStyle="RGBA(100,255,100, 0.5)";
+			context.roundRect(50, 50, 150, 50, 20, false);
+			context.roundRect(500, 50, 150, 150, 15, true);
+			context.strokeStyle="blue";								
+			for(var i=0; i<10; i++) {
+				var delta = i*20;
+				var pattern = i*2+1;
+				context.dashedLineTo(250, 50+delta, 550, 50+delta, pattern);
+			}
+		}
+	</script>
+</head>
+<body>
+	<h1>HTML5 Canvas Dash-line Demo - By Gloomy Fish</h1>
+	<pre>Dash line and Rounded Rectangle</pre>
+	<div id="box_plot">
+		<canvas id="text_canvas"></canvas>
+	</div>
+</body>
+</html>
