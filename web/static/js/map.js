@@ -38,12 +38,38 @@
     caculateTextWidth: function (key, fontSize, text_dwidth) {
         var width = key.length * fontSize + text_dwidth;
         return width;
+    },
+    caculatePositionAndSize: function (key, fontSize, text_dwidth) {
+        var width = key.length * fontSize + text_dwidth;
+        return width;
     }
+
+
 };
 
 function renderMap() {
     renderNode(mapdata, "level0");
 }
+
+function caculatePositionAndSize(node, offset_level) {
+    var properties=node.properties;
+    var childrenCount=0;
+    for (var key in node) {
+        if (key != "properties") {
+            childrenCount++;
+        }
+    }
+    properties.childrenCount=childrenCount;
+}
+
+function caculatedrawNode(key, properties, offset) {
+
+    context.font = offset.font;
+    var width = offsets.caculateTextWidth(key, offset.fontSize, offset.text_dwidth);
+    context.roundRect(properties.position.x, properties.position.y, width, offset.height, 13, false);
+    context.fillText(key, properties.position.x + offset.text_dx, properties.position.y + offset.text_dy);
+}
+
 
 function renderNode(node, offset_level) {
     var offset = offsets[offset_level];
