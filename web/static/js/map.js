@@ -1,28 +1,22 @@
-﻿
-var mapdata =
-{
-	//root
-	"奇思妙想" :
-	{
-		properties :
-		{
-			position : "200,100,0",
-		},
-		//nodes
-		"产品功能" :
-		{
+﻿function renderMap() {
+    renderNode(mapdata);
+}
 
-			"云存储" : {},
-			"协同编辑" : {},
-			"演示文档" : {},
-			"组件分享" : {}
-		},
-		"产品价值" :
-		{
+function renderNode(node) {
+    for (var key in node) {
+        var childNode = node[key];
+        if(key!="properties"){
+            drawNode(key, childNode.properties);
+            renderNode(childNode);
+        }
+    }
+}
 
-			"让想象力自由飞翔" : {},
-			"let your imagination soar" : {}
-		}
-	}
 
+function drawNode(key, properties) {
+
+    context.lineWidth = properties.lineWidth;
+    context.roundRect(properties.position.x, properties.position.y, properties.size.height, properties.size.width, 13, false);
+    context.font = properties.font;
+    context.fillText(key, properties.position.x + 46, properties.position.y + 66);
 }
