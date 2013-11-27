@@ -1,0 +1,71 @@
+﻿<!DOCTYPE>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <script type="text/javascript" src="lib/canvas/canvas-1.2.dev.js">
+        </script>
+        <title>测试Canvas 方法</title>
+    </head>
+    <body style="padding:0 0 0 0; margin:0 0 0 0;">
+        <div style="width:100%;height:100%; padding:0 0 0 0; margin:0 0 0 0; font-size:50px;">
+            <canvas style="background-color:#ffffff; width:100%; height:100%; padding:0 0 0 0; margin:0 0 0 0;" id="ctMs">
+            </canvas>
+        </div>
+        <script type="text/javascript">
+           
+           
+            var cvs = Canvas("ctMs", 0);
+            var i = 0;
+            cvs.clear();
+           
+            cvs.fillStyle('rgba(0, 0, 255, 0.5)');
+            cvs.fillRect(150, 100, 100, 50); // ALIGN.LEFT.TOP is the default alignment
+            cvs.strokeStyle('#333333');
+            cvs.grid(40, 50);
+            var positionLayer = cvs.createLayer('position', 0);
+            positionLayer.onMouseMove = function(x, y){
+                // clear the canvas and set stroke color to red
+                this.clear();
+                this.strokeColor('#FF0000');               
+                // stroke a crossing at mouse coordinates
+                this.strokeLine(x, 0, x, this.height);
+                this.strokeLine(0, y, this.width, y);               
+                // display the coordinates as text also
+                this.fillColor('#FF0000');
+                this.font('12px Arial');
+                var currentPos = getCurrentPos(x, y, 40, 50);
+                this.fillText(currentPos.xs + 'x' + currentPos.ys, x - 4, y + 4, ALIGN.RIGHT.TOP);
+               
+                this.save();
+                this.fillStyle('rgba(0, 0, 255, 0.5)');
+                this.translate(currentPos.xs * 40, currentPos.ys * 50);
+                this.fillRect(0, 0, 40, 50);
+                this.restore();
+                this.renderSingleFrame();
+            }
+           
+            cvs.onMouseDown = function(x, y, button){
+                var currentPos = getCurrentPos(x, y, 40, 50);
+                var positionLayer = cvs.createLayer('position' + (i++), 0, function(){
+               
+                    this.save();
+                    this.fillStyle('rgba(0, 0, 255, 0.5)');
+                    this.translate(currentPos.xs * 40, currentPos.ys * 50);
+                    this.fillRect(0, 0, 40, 50);
+                    this.restore();
+                   
+                });
+               
+            }
+           
+            function getCurrentPos(x, y, xStop, yStop){
+                var xPos = ~ ~ (x / xStop);
+                var yPos = ~ ~ (y / yStop)
+                return {
+                    xs: xPos,
+                    ys: yPos
+                };
+            }
+        </script>
+    </body>
+</html>

@@ -15,13 +15,13 @@ function resizeWindow() {
     canvas.setAttribute('height', h);
     context.fillStyle = "#484848";
 
-    //    context.drawImage(image, 300, 80, 800, 506);
+//        context.drawImage(image, 300, 80, 800, 506);
 
     context.strokeStyle = "#0099cd";
-    context.lineWidth = 2.5;
-    context.roundRect(825, 380, 205, 35, 13, false);
-    context.font = "bold 19px XX";
-    context.fillText("让想象力自由飞翔", 847, 404);
+//    context.lineWidth = 2.5;
+//    context.roundRect(825, 380, 205, 35, 13, false);
+//    context.font = "bold 19px XX";
+//    context.fillText("让想象力自由飞翔", 847, 404);
 
 
     //    context.lineWidth =4.5;
