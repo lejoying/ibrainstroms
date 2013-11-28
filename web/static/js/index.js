@@ -225,7 +225,7 @@ function initialize_box_2d() {
 
         world.Step(1 / 60, 10, 10);
 //        context.globalAlpha = 1;
-        world.DrawDebugData();
+//        world.DrawDebugData();
         renderNode(mapdata, "level0");
 
 //        context.globalAlpha = 0.2;

@@ -33,7 +33,7 @@
 
         box_dwidth: 50 + 20,
         box_height: 35 * 1.36,
-        box_x: 480,
+        box_x: 280,
         box_y: 0,
 
         box_parent_x: 0,
@@ -53,7 +53,7 @@
 
         box_dwidth: 50 + 20,
         box_height: 35 * 1.36,
-        box_x: 450,
+        box_x: 250,
         box_y: 0,
 
         box_parent_x: 0,
@@ -128,17 +128,11 @@ function buildBoxModel(key, properties, offset, box_parent_x, box_parent_y) {
     var metrics = context.measureText(key);
     fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth - 36 ) / 60, offset.box_height / 60);
     body.CreateFixture(fixDef);
-//    fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth ) / 60, (offset.box_height - 36) / 60);
-//    body.CreateFixture(fixDef);
+    //    fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth ) / 60, (offset.box_height - 36) / 60);
+    //    body.CreateFixture(fixDef);
 
-    fixDef.shape = new b2CircleShape(offset.box_height / 60);
+    //    fixDef.shape = new b2CircleShape(offset.box_height / 60);
 
-    var vertex_R = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, 0);
-    var vertex_L = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, 0);
-    fixDef.shape.SetLocalPosition(vertex_R);
-    body.CreateFixture(fixDef);
-    fixDef.shape.SetLocalPosition(vertex_L);
-    body.CreateFixture(fixDef);
 
     //    var vertex_R_B = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, (offset.box_height - 36) / 60);
     //    var vertex_L_B = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, (offset.box_height - 36) / 60);
@@ -160,8 +154,13 @@ function renderNode(node, offset_level) {
     for (var key in node) {
         var childNode = node[key];
         if (key != "properties") {
+            context.save();
+            if (childNode.properties.color) {
+                context.strokeStyle = childNode.properties.color;
+            }
             drawNode(key, childNode.properties, offset);
             renderNode(childNode, offset.next_offset_level);
+            context.restore();
         }
     }
 }

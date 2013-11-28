@@ -54,7 +54,7 @@ var mapdata= {
         properties: {
             position: {x: 122, y: 210},
             size: {height: 118, width: 205},
-//            color: "#0586ca"
+            color: "#0586ca"
         },
         //nodes
         "产品功能": {
@@ -64,6 +64,9 @@ var mapdata= {
             "云端存储": {
             },
             "协同编辑": {
+                properties: {
+                    color: "#ef0000"
+                }
             },
             "演示文档": {
             },
@@ -74,9 +77,12 @@ var mapdata= {
             properties: {
                 color: "#0586ca"
             },
-            "产品价值": {
+            "让想象力自由飞翔": {
+                properties: {
+                    color: "#000000"
+                }
             },
-            "演示文档": {
+            "let your imagination soar": {
             }
         },
 //        "产品测试": {
