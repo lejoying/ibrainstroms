@@ -67,19 +67,19 @@ function initialize_box_2d() {
 
     function beginContact(contact) {
         contactCounting++;
-//        console.log("beginContact", contactCounting);
+        console.log("beginContact", contactCounting, contact);
     };
     function endContact(contact) {
         contactCounting++;
-//        console.log("endContact", contactCounting);
+        console.log("endContact", contactCounting);
     };
     function preSolve(contact) {
         //        contactCounting++;
-        //        console.log("preSolve",contactCounting);
+//                console.log("preSolve",contactCounting);
     };
     function postSolve(contact) {
         //        contactCounting++;
-        //        console.log("postSolve",contactCounting);
+//                console.log("postSolve",contactCounting);
     };
 
     var fixDef = new b2FixtureDef;
@@ -98,15 +98,15 @@ function initialize_box_2d() {
 
     fixDef.shape = new b2PolygonShape;
     fixDef.shape.SetAsBox(2000 / 30, 2);
-    bodyDef.position.Set(10, 600 / 30 + 1.8);//bottom
-    world.CreateBody(bodyDef).CreateFixture(fixDef);
+//    bodyDef.position.Set(10, 600 / 30 + 1.8);//bottom
+//    world.CreateBody(bodyDef).CreateFixture(fixDef);
     bodyDef.position.Set(10, -1.8);//top
     world.CreateBody(bodyDef).CreateFixture(fixDef);
     fixDef.shape.SetAsBox(2, 600 / 30);
     bodyDef.position.Set(-1.8, 13);//left
-    world.CreateBody(bodyDef).CreateFixture(fixDef);
-    bodyDef.position.Set(1500 / 30, 13);//right
-    world.CreateBody(bodyDef).CreateFixture(fixDef);
+//    world.CreateBody(bodyDef).CreateFixture(fixDef);
+//    bodyDef.position.Set(1500 / 30, 13);//right
+//    world.CreateBody(bodyDef).CreateFixture(fixDef);
 
     //
     //    //create some objects
@@ -226,6 +226,7 @@ function initialize_box_2d() {
         world.Step(1 / 60, 10, 10);
 //        context.globalAlpha = 1;
 //        world.DrawDebugData();
+//        console.log(world.m_bodyList.GetPosition().y)
         renderNode(mapdata, "level0");
 
 //        context.globalAlpha = 0.2;

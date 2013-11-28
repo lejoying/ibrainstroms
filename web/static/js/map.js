@@ -128,6 +128,7 @@ function buildBoxModel(key, properties, offset, box_parent_x, box_parent_y) {
     var metrics = context.measureText(key);
     fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth - 36 ) / 60, offset.box_height / 60);
     body.CreateFixture(fixDef);
+    body.userData=key;
     //    fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth ) / 60, (offset.box_height - 36) / 60);
     //    body.CreateFixture(fixDef);
 
