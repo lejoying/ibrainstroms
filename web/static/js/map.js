@@ -4,7 +4,7 @@
         fontSize: 22,
         text_dwidth: 118,
 
-        text_dx: 50,
+        text_dx: -50,
         text_dy: 10,
 
         lineWidth: 4.5,
@@ -24,7 +24,7 @@
         fontSize: 22,
         text_dwidth: 50,
 
-        text_dx: 24,
+        text_dx: -40,
         text_dy: 9,
 
         lineWidth: 2.5,
@@ -44,7 +44,7 @@
         fontSize: 19,
         text_dwidth: 50,
 
-        text_dx: 24,
+        text_dx: -36,
         text_dy: 7,
 
         lineWidth: 2.5,
@@ -91,13 +91,13 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2
     , b2ContactListener = Box2D.Dynamics.b2ContactListener
     , b2MouseJointDef = Box2D.Dynamics.Joints.b2MouseJointDef;
 var fixDef = new b2FixtureDef;
-fixDef.density = 1.0;
+fixDef.density = 0;
 fixDef.friction = 0.5;
 fixDef.restitution = 0.8;
 var bodyDef = new b2BodyDef;
 bodyDef.type = b2Body.b2_dynamicBody;
-bodyDef.linearDamping = 5;
-bodyDef.angularDamping = 20;
+bodyDef.linearDamping = 20;
+bodyDef.angularDamping = Number.POSITIVE_INFINITY;
 
 function boxModelNode(node, offset_level, box_parent_x, box_parent_y) {
 
@@ -164,10 +164,10 @@ function drawNode1(key, properties, offset) {
     var position = properties.body.GetPosition();
 
     context.lineWidth = offset.lineWidth;
-    //    context.font = offset.font;
+    context.font = offset.font;
     var width = offsets.caculateTextWidth(key, offset.fontSize, offset.text_dwidth);
     context.roundRect(position.x * 30, position.y * 30, width, offset.height, 13, false);
-    //    context.fillText(key, properties.position.x + offset.text_dx, properties.position.y + offset.text_dy);
+    context.fillText(key, position.x * 30 + offset.text_dx, position.y * 30 + offset.text_dy);
 }
 
 

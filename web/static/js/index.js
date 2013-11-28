@@ -200,9 +200,10 @@ function initialize_box_2d() {
                 var md = new b2MouseJointDef();
                 md.bodyA = world.GetGroundBody();
                 md.bodyB = body;
-                md.target.Set(mouseX, mouseY);
+                var position =body.GetPosition();
+                md.target.Set(position.x, position.y);
                 md.collideConnected = true;
-                md.maxForce = 300.0 * body.GetMass();
+                md.maxForce = 30000.0 * body.GetMass();
                 mouseJoint = world.CreateJoint(md);
                 body.SetAwake(true);
             }

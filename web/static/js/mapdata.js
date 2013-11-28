@@ -1,4 +1,18 @@
-﻿var mapdata = {
+﻿/*
+
+奇思妙想:
+    产品功能:
+        云端存储{position:{x:1,y:10}}
+        协同编辑
+        组件分享
+        演示文档
+    产品功能:
+        让想象力自由飞翔
+        let your imagination soar
+ */
+
+
+var mapdata = {
     //root
     "奇思妙想": {
         properties: {
