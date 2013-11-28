@@ -11,7 +11,7 @@
         next_offset_level: "level1",
         height: 118,
 
-        box_width: 206,
+        box_dwidth: 118 + 60,
         box_height: 118 * 1.5,
         box_x: 0,
         box_y: 0,
@@ -31,8 +31,8 @@
         next_offset_level: "levelN",
         height: 35,
 
-        box_width: 150,
-        box_height: 35 * 1.5,
+        box_dwidth: 50 + 20,
+        box_height: 35 * 1.36,
         box_x: 250,
         box_y: 0,
 
@@ -40,7 +40,7 @@
         box_parent_y: 0
     },
     "levelN": {
-        font: "bold 19px XX",
+        font: "bold 19px Arial",
         fontSize: 19,
         text_dwidth: 50,
 
@@ -51,29 +51,19 @@
         next_offset_level: "levelN",
         height: 35,
 
-        box_width: 150,
-        box_height: 35 * 1.5,
+        box_dwidth: 50 + 20,
+        box_height: 35 * 1.36,
         box_x: 200,
         box_y: 0,
 
         box_parent_x: 0,
         box_parent_y: 0
-    },
-    caculateTextWidth: function (key, fontSize, text_dwidth) {
-        var width = key.length * fontSize + text_dwidth;
-        return width;
-    },
-    caculatePositionAndSize: function (key, fontSize, text_dwidth) {
-        var width = key.length * fontSize + text_dwidth;
-        return width;
     }
-
-
 };
 
 function renderMap() {
     //    renderNode(mapdata, "level0");
-    boxModelNode(mapdata, "level0", 426, 269);
+    boxModelNode(mapdata, "level0", 226, 269);
 }
 
 
@@ -102,9 +92,20 @@ bodyDef.angularDamping = Number.POSITIVE_INFINITY;
 function boxModelNode(node, offset_level, box_parent_x, box_parent_y) {
 
     var offset = offsets[offset_level];
+    var keys = [];
     for (var key in node) {
-        var childNode = node[key];
         if (key != "properties") {
+            keys.push(key);
+        }
+    }
+    keys = keys.reverse();
+    for (var id in keys) {
+        var key = keys[id];
+        var childNode = node[key];
+        if (childNode) {
+            if (childNode.properties == null) {
+                childNode.properties = {};
+            }
             buildBoxModel(key, childNode.properties, offset, box_parent_x, box_parent_y);
             boxModelNode(childNode, offset.next_offset_level, childNode.properties.box_x, childNode.properties.box_y);
         }
@@ -112,8 +113,8 @@ function boxModelNode(node, offset_level, box_parent_x, box_parent_y) {
 }
 
 function buildBoxModel(key, properties, offset, box_parent_x, box_parent_y) {
-    fixDef.shape = new b2PolygonShape;
-    fixDef.shape.SetAsBox(offset.box_width / 60, offset.box_height / 60);
+
+
     properties.box_x = offset.box_x + box_parent_x;
     properties.box_y = offset.box_y + box_parent_y;
     bodyDef.position.x = (offset.box_x + box_parent_x) / 30;
@@ -121,29 +122,30 @@ function buildBoxModel(key, properties, offset, box_parent_x, box_parent_y) {
     fixDef.isSensor = false;
     var body = world.CreateBody(bodyDef);
     properties.body = body;
-    var fixture = body.CreateFixture(fixDef);
-    properties.fixture = fixture;
-}
 
-
-function caculatePositionAndSize(node, offset_level) {
-    var properties = node.properties;
-    var childrenCount = 0;
-    for (var key in node) {
-        if (key != "properties") {
-            childrenCount++;
-        }
-    }
-    properties.childrenCount = childrenCount;
-}
-
-function caculatedrawNode(key, properties, offset) {
-
+    fixDef.shape = new b2PolygonShape;
     context.font = offset.font;
-    var width = offsets.caculateTextWidth(key, offset.fontSize, offset.text_dwidth);
-    context.roundRect(properties.position.x, properties.position.y, width, offset.height, 13, false);
-    context.fillText(key, properties.position.x + offset.text_dx, properties.position.y + offset.text_dy);
+    var metrics = context.measureText(key);
+    fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth - 36 ) / 60, offset.box_height / 60);
+    body.CreateFixture(fixDef);
+    fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth ) / 60, (offset.box_height - 36) / 60);
+    body.CreateFixture(fixDef);
+    fixDef.shape = new b2CircleShape(36 / 60);
+
+    var vertex_R_B = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, (offset.box_height - 36) / 60);
+    var vertex_L_B = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, (offset.box_height - 36) / 60);
+    var vertex_R_T = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, -(offset.box_height - 36) / 60);
+    var vertex_L_T = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, -(offset.box_height - 36) / 60);
+    fixDef.shape.SetLocalPosition(vertex_R_B);
+    body.CreateFixture(fixDef);
+    fixDef.shape.SetLocalPosition(vertex_L_B);
+    body.CreateFixture(fixDef);
+    fixDef.shape.SetLocalPosition(vertex_R_T);
+    body.CreateFixture(fixDef);
+    fixDef.shape.SetLocalPosition(vertex_L_T);
+    body.CreateFixture(fixDef);
 }
+
 
 function renderNode1(node, offset_level) {
     var offset = offsets[offset_level];
@@ -165,9 +167,10 @@ function drawNode1(key, properties, offset) {
 
     context.lineWidth = offset.lineWidth;
     context.font = offset.font;
-    var width = offsets.caculateTextWidth(key, offset.fontSize, offset.text_dwidth);
-    context.roundRect(position.x * 30, position.y * 30, width, offset.height, 13, false);
-    context.fillText(key, position.x * 30 + offset.text_dx, position.y * 30 + offset.text_dy);
+    var metrics = context.measureText(key);
+    var width = metrics.width;
+    context.roundRect(position.x * 30, position.y * 30, width + offset.text_dwidth, offset.height, 13, false);
+    context.fillText(key, position.x * 30 - width / 2, position.y * 30 + offset.text_dy);
 }
 
 

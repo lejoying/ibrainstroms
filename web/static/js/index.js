@@ -9,7 +9,7 @@ function initialize() {
     resizeWindow();
 }
 window.onload = initialize;
-window.onresize = resizeWindow;
+//window.onresize = resizeWindow;
 function resizeWindow() {
     var h = window.innerHeight - 52 - 3;
     var w = window.innerWidth - 0 - 2;
@@ -63,22 +63,23 @@ function initialize_box_2d() {
     contactListener.PostSolve = postSolve;
     world.SetContactListener(contactListener);
 
-    var contactCounting=0;
+    var contactCounting = 0;
+
     function beginContact(contact) {
         contactCounting++;
-        console.log("beginContact",contactCounting);
+//        console.log("beginContact", contactCounting);
     };
     function endContact(contact) {
         contactCounting++;
-        console.log("endContact",contactCounting);
+//        console.log("endContact", contactCounting);
     };
     function preSolve(contact) {
-//        contactCounting++;
-//        console.log("preSolve",contactCounting);
+        //        contactCounting++;
+        //        console.log("preSolve",contactCounting);
     };
     function postSolve(contact) {
-//        contactCounting++;
-//        console.log("postSolve",contactCounting);
+        //        contactCounting++;
+        //        console.log("postSolve",contactCounting);
     };
 
     var fixDef = new b2FixtureDef;
@@ -107,31 +108,31 @@ function initialize_box_2d() {
     bodyDef.position.Set(1500 / 30, 13);//right
     world.CreateBody(bodyDef).CreateFixture(fixDef);
 
-//
-//    //create some objects
-//    bodyDef.type = b2Body.b2_dynamicBody;
-//    for (var i = 0; i < 10; ++i) {
-//        if (Math.random() > 0.5) {
-//            fixDef.shape = new b2PolygonShape;
-//            fixDef.shape.SetAsBox(Math.random() + 0.1 //half width
-//                , Math.random() + 0.1 //half height
-//            );
-//            fixDef.isSensor = false;
-//        }
-//        else {
-//            fixDef.shape = new b2CircleShape(Math.random() + 0.1//radius
-//            );
-//            fixDef.isSensor = false;
-//        }
-//        bodyDef.position.x = Math.random() * 10;
-//        bodyDef.position.y = Math.random() * 10;
-//        world.CreateBody(bodyDef).CreateFixture(fixDef);
-//    }
-//
-//    fixDef.shape = new b2PolygonShape;
-//    fixDef.shape.SetAsBox(10, 10);
-//    fixDef.isSensor = true;
-//    world.CreateBody(bodyDef).CreateFixture(fixDef);
+    //
+    //    //create some objects
+    //    bodyDef.type = b2Body.b2_dynamicBody;
+    //    for (var i = 0; i < 10; ++i) {
+    //        if (Math.random() > 0.5) {
+    //            fixDef.shape = new b2PolygonShape;
+    //            fixDef.shape.SetAsBox(Math.random() + 0.1 //half width
+    //                , Math.random() + 0.1 //half height
+    //            );
+    //            fixDef.isSensor = false;
+    //        }
+    //        else {
+    //            fixDef.shape = new b2CircleShape(Math.random() + 0.1//radius
+    //            );
+    //            fixDef.isSensor = false;
+    //        }
+    //        bodyDef.position.x = Math.random() * 10;
+    //        bodyDef.position.y = Math.random() * 10;
+    //        world.CreateBody(bodyDef).CreateFixture(fixDef);
+    //    }
+    //
+    //    fixDef.shape = new b2PolygonShape;
+    //    fixDef.shape.SetAsBox(10, 10);
+    //    fixDef.isSensor = true;
+    //    world.CreateBody(bodyDef).CreateFixture(fixDef);
 
     //setup debug draw
     var debugDraw = new b2DebugDraw();
@@ -200,7 +201,7 @@ function initialize_box_2d() {
                 var md = new b2MouseJointDef();
                 md.bodyA = world.GetGroundBody();
                 md.bodyB = body;
-                var position =body.GetPosition();
+                var position = body.GetPosition();
                 md.target.Set(position.x, position.y);
                 md.collideConnected = true;
                 md.maxForce = 30000.0 * body.GetMass();
@@ -223,11 +224,12 @@ function initialize_box_2d() {
         context.clearRect(0, 0, w, h);
 
         world.Step(1 / 60, 10, 10);
-        context.globalAlpha = 1;
-        renderNode1(mapdata, "level0");
+//        context.globalAlpha = 1;
 //        world.DrawDebugData();
-        context.globalAlpha = 0.2;
-//        context.drawImage(image, 300, 80, 800, 506);
+        renderNode1(mapdata, "level0");
+
+//        context.globalAlpha = 0.2;
+//        context.drawImage(image, 100, 80, 800, 506);
         world.ClearForces();
     };
 
@@ -253,6 +255,5 @@ function initialize_box_2d() {
 
         return {x: x, y: y};
     }
-
 
 };
