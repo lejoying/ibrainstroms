@@ -5,8 +5,8 @@ var image = new Image();
 image.src = "/static/images/map.jpg";
 
 function initialize() {
-    resizeWindow();
     initialize_box_2d();
+    resizeWindow();
 }
 window.onload = initialize;
 window.onresize = resizeWindow;
@@ -33,7 +33,7 @@ function resizeWindow() {
     //    context.fillText("奇思妙想", 375, 278);
     renderMap();
 }
-
+var world;
 function initialize_box_2d() {
     var b2Vec2 = Box2D.Common.Math.b2Vec2
         , b2AABB = Box2D.Collision.b2AABB
@@ -49,7 +49,7 @@ function initialize_box_2d() {
         , b2ContactListener = Box2D.Dynamics.b2ContactListener
         , b2MouseJointDef = Box2D.Dynamics.Joints.b2MouseJointDef;
 
-    var world = new b2World(new b2Vec2(0, 0)    //gravity
+    world = new b2World(new b2Vec2(0, 0)    //gravity
         , true                 //allow sleep
     );
 
@@ -107,31 +107,31 @@ function initialize_box_2d() {
     bodyDef.position.Set(1500 / 30, 13);//right
     world.CreateBody(bodyDef).CreateFixture(fixDef);
 
-
-    //create some objects
-    bodyDef.type = b2Body.b2_dynamicBody;
-    for (var i = 0; i < 10; ++i) {
-        if (Math.random() > 0.5) {
-            fixDef.shape = new b2PolygonShape;
-            fixDef.shape.SetAsBox(Math.random() + 0.1 //half width
-                , Math.random() + 0.1 //half height
-            );
-            fixDef.isSensor = false;
-        }
-        else {
-            fixDef.shape = new b2CircleShape(Math.random() + 0.1//radius
-            );
-            fixDef.isSensor = false;
-        }
-        bodyDef.position.x = Math.random() * 10;
-        bodyDef.position.y = Math.random() * 10;
-        world.CreateBody(bodyDef).CreateFixture(fixDef);
-    }
-
-    fixDef.shape = new b2PolygonShape;
-    fixDef.shape.SetAsBox(10, 10);
-    fixDef.isSensor = true;
-    world.CreateBody(bodyDef).CreateFixture(fixDef);
+//
+//    //create some objects
+//    bodyDef.type = b2Body.b2_dynamicBody;
+//    for (var i = 0; i < 10; ++i) {
+//        if (Math.random() > 0.5) {
+//            fixDef.shape = new b2PolygonShape;
+//            fixDef.shape.SetAsBox(Math.random() + 0.1 //half width
+//                , Math.random() + 0.1 //half height
+//            );
+//            fixDef.isSensor = false;
+//        }
+//        else {
+//            fixDef.shape = new b2CircleShape(Math.random() + 0.1//radius
+//            );
+//            fixDef.isSensor = false;
+//        }
+//        bodyDef.position.x = Math.random() * 10;
+//        bodyDef.position.y = Math.random() * 10;
+//        world.CreateBody(bodyDef).CreateFixture(fixDef);
+//    }
+//
+//    fixDef.shape = new b2PolygonShape;
+//    fixDef.shape.SetAsBox(10, 10);
+//    fixDef.isSensor = true;
+//    world.CreateBody(bodyDef).CreateFixture(fixDef);
 
     //setup debug draw
     var debugDraw = new b2DebugDraw();
@@ -217,9 +217,16 @@ function initialize_box_2d() {
                 mouseJoint = null;
             }
         }
+        var h = window.innerHeight - 52 - 3;
+        var w = window.innerWidth - 0 - 2;
+        context.clearRect(0, 0, w, h);
 
         world.Step(1 / 60, 10, 10);
-        world.DrawDebugData();
+        context.globalAlpha = 1;
+        renderNode1(mapdata, "level0");
+//        world.DrawDebugData();
+        context.globalAlpha = 0.2;
+//        context.drawImage(image, 300, 80, 800, 506);
         world.ClearForces();
     };
 
