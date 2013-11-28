@@ -33,7 +33,7 @@
 
         box_dwidth: 50 + 20,
         box_height: 35 * 1.36,
-        box_x: 250,
+        box_x: 480,
         box_y: 0,
 
         box_parent_x: 0,
@@ -53,7 +53,7 @@
 
         box_dwidth: 50 + 20,
         box_height: 35 * 1.36,
-        box_x: 200,
+        box_x: 450,
         box_y: 0,
 
         box_parent_x: 0,
@@ -82,7 +82,7 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2
     , b2MouseJointDef = Box2D.Dynamics.Joints.b2MouseJointDef;
 var fixDef = new b2FixtureDef;
 fixDef.density = 0;
-fixDef.friction = 0.5;
+fixDef.friction = 0.2;
 fixDef.restitution = 0.8;
 var bodyDef = new b2BodyDef;
 bodyDef.type = b2Body.b2_dynamicBody;
@@ -128,49 +128,30 @@ function buildBoxModel(key, properties, offset, box_parent_x, box_parent_y) {
     var metrics = context.measureText(key);
     fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth - 36 ) / 60, offset.box_height / 60);
     body.CreateFixture(fixDef);
-    fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth ) / 60, (offset.box_height - 36) / 60);
+//    fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth ) / 60, (offset.box_height - 36) / 60);
+//    body.CreateFixture(fixDef);
+
+    fixDef.shape = new b2CircleShape(offset.box_height / 60);
+
+    var vertex_R = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, 0);
+    var vertex_L = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, 0);
+    fixDef.shape.SetLocalPosition(vertex_R);
     body.CreateFixture(fixDef);
-    fixDef.shape = new b2CircleShape(36 / 60);
-
-    var vertex_R_B = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, (offset.box_height - 36) / 60);
-    var vertex_L_B = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, (offset.box_height - 36) / 60);
-    var vertex_R_T = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, -(offset.box_height - 36) / 60);
-    var vertex_L_T = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, -(offset.box_height - 36) / 60);
-    fixDef.shape.SetLocalPosition(vertex_R_B);
+    fixDef.shape.SetLocalPosition(vertex_L);
     body.CreateFixture(fixDef);
-    fixDef.shape.SetLocalPosition(vertex_L_B);
-    body.CreateFixture(fixDef);
-    fixDef.shape.SetLocalPosition(vertex_R_T);
-    body.CreateFixture(fixDef);
-    fixDef.shape.SetLocalPosition(vertex_L_T);
-    body.CreateFixture(fixDef);
-}
 
-
-function renderNode1(node, offset_level) {
-    var offset = offsets[offset_level];
-    for (var key in node) {
-        var childNode = node[key];
-        if (key != "properties") {
-            drawNode1(key, childNode.properties, offset);
-            renderNode1(childNode, offset.next_offset_level);
-        }
-    }
-}
-
-function drawNode1(key, properties, offset) {
-
-    if (properties.color) {
-        context.strokeStyle = properties.color;
-    }
-    var position = properties.body.GetPosition();
-
-    context.lineWidth = offset.lineWidth;
-    context.font = offset.font;
-    var metrics = context.measureText(key);
-    var width = metrics.width;
-    context.roundRect(position.x * 30, position.y * 30, width + offset.text_dwidth, offset.height, 13, false);
-    context.fillText(key, position.x * 30 - width / 2, position.y * 30 + offset.text_dy);
+    //    var vertex_R_B = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, (offset.box_height - 36) / 60);
+    //    var vertex_L_B = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, (offset.box_height - 36) / 60);
+    //    var vertex_R_T = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, -(offset.box_height - 36) / 60);
+    //    var vertex_L_T = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, -(offset.box_height - 36) / 60);
+    //    fixDef.shape.SetLocalPosition(vertex_R_B);
+    //    body.CreateFixture(fixDef);
+    //    fixDef.shape.SetLocalPosition(vertex_L_B);
+    //    body.CreateFixture(fixDef);
+    //    fixDef.shape.SetLocalPosition(vertex_R_T);
+    //    body.CreateFixture(fixDef);
+    //    fixDef.shape.SetLocalPosition(vertex_L_T);
+    //    body.CreateFixture(fixDef);
 }
 
 
@@ -185,17 +166,18 @@ function renderNode(node, offset_level) {
     }
 }
 
-
 function drawNode(key, properties, offset) {
 
     if (properties.color) {
         context.strokeStyle = properties.color;
     }
-
+    var position = properties.body.GetPosition();
 
     context.lineWidth = offset.lineWidth;
     context.font = offset.font;
-    var width = offsets.caculateTextWidth(key, offset.fontSize, offset.text_dwidth);
-    context.roundRect(properties.position.x, properties.position.y, width, offset.height, 13, false);
-    context.fillText(key, properties.position.x + offset.text_dx, properties.position.y + offset.text_dy);
+    var metrics = context.measureText(key);
+    var width = metrics.width;
+    context.roundRect(position.x * 30, position.y * 30, width + offset.text_dwidth, offset.height, 13, false);
+    context.fillText(key, position.x * 30 - width / 2, position.y * 30 + offset.text_dy);
 }
+

@@ -74,37 +74,37 @@ var mapdata= {
             properties: {
                 color: "#0586ca"
             },
-            "让想象力自由飞翔": {
+            "产品价值": {
             },
-            "let your imagination soar": {
+            "演示文档": {
             }
         },
-        "产品测试": {
-            properties: {
-                color: "#000000"
-            },
-            "让想象力自由飞翔": {
-            },
-            "let your imagination soar": {
-            },
-            "产品测试": {
-                properties: {
-                    color: "#00ff00"
-                },
-                "让想象力自由飞翔": {
-                },
-                "let your imagination soar": {
-                    "产品测试": {
-                        properties: {
-                            color: "#ff0000"
-                        },
-                        "让想象力自由飞翔": {
-                        },
-                        "let your imagination soar": {
-                        }
-                    }
-                }
-            }
-        }
+//        "产品测试": {
+//            properties: {
+//                color: "#000000"
+//            },
+//            "让想象力自由飞翔": {
+//            },
+//            "let your imagination soar": {
+//            },
+//            "产品测试": {
+//                properties: {
+//                    color: "#00ff00"
+//                },
+//                "让想象力自由飞翔": {
+//                },
+//                "let your imagination soar": {
+//                    "产品测试": {
+//                        properties: {
+//                            color: "#ff0000"
+//                        },
+//                        "让想象力自由飞翔": {
+//                        },
+//                        "let your imagination soar": {
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
 }
