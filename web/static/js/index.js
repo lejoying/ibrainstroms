@@ -22,7 +22,7 @@ function resizeWindow() {
     context.strokeStyle = "#0099cd";
     var b2Settings = Box2D.Common.b2Settings;
     b2Settings.b2_linearSlop = -0.005;
-    renderMap();
+    locateNode(mapdata, null, "level0");
 
 }
 var world;
@@ -76,7 +76,6 @@ function initialize_box_2d() {
     };
     function endContact(contact) {
     };
-
 
 
     function preSolve(contact) {
@@ -177,7 +176,7 @@ function initialize_box_2d() {
         world.Step(1 / 60, 10, 10);
         //        context.globalAlpha = 1;
         //        world.DrawDebugData();
-        renderNode(mapdata, "level0");
+        renderNode(mapdata, "level0", transform);
 
         //        context.globalAlpha = 0.2;
         //        context.drawImage(image, 100, 80, 800, 506);

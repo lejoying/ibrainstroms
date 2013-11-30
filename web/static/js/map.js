@@ -1,85 +1,51 @@
-﻿var b2Vec2 = Box2D.Common.Math.b2Vec2
-    , b2AABB = Box2D.Collision.b2AABB
-    , b2BodyDef = Box2D.Dynamics.b2BodyDef
-    , b2Body = Box2D.Dynamics.b2Body
-    , b2FixtureDef = Box2D.Dynamics.b2FixtureDef
-    , b2Fixture = Box2D.Dynamics.b2Fixture
-    , b2World = Box2D.Dynamics.b2World
-    , b2MassData = Box2D.Collision.Shapes.b2MassData
-    , b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape
-    , b2CircleShape = Box2D.Collision.Shapes.b2CircleShape
-    , b2DebugDraw = Box2D.Dynamics.b2DebugDraw
-    , b2ContactListener = Box2D.Dynamics.b2ContactListener
-    , b2MouseJointDef = Box2D.Dynamics.Joints.b2MouseJointDef;
-
-var fixDef = new b2FixtureDef;
-fixDef.density = 0;
-fixDef.friction = 0.2;
-fixDef.restitution = 0.8;
-var bodyDef = new b2BodyDef;
-bodyDef.type = b2Body.b2_dynamicBody;
-bodyDef.linearDamping = 20;
-bodyDef.angularDamping = Number.POSITIVE_INFINITY;
-
-
-function renderMap() {
-    //    renderNode(mapdata, "level0");
-    boxModelNode(mapdata, "level0", 226, 269);
+﻿var transform = {
+    x: 226,
+    y: 340
 }
 
-function boxModelNode(node, offset_level, box_parent_x, box_parent_y) {
-
+function locateNode(node, parent, offset_level) {
     var offset = offsets[offset_level];
+
     var keys = [];
     for (var key in node) {
         if (key != "properties") {
-            keys.push(key);
+            keys.unshift(key);
         }
     }
-    keys = keys.reverse();
-    for (var id in keys) {
-        var key = keys[id];
-        var childNode = node[key];
-        if (childNode) {
+    var key;
+    var childNode;
+    if (node.properties == null) {
+        node.properties = {position: {x: 0, y: 0}};
+    }
+    if (node.properties.position == null) {
+        node.properties.position = {x: 0, y: 0};
+    }
+
+    node.properties.childCount = keys.length;
+    for (var i = 0; i < keys.length; i++) {
+        key = keys[i];
+        childNode = node[key];
+        if (key != "properties") {
             if (childNode.properties == null) {
-                childNode.properties = {};
+                childNode.properties = {position: {x: 0, y: 0}};
             }
-            buildBoxModel(key, childNode.properties, offset, box_parent_x, box_parent_y, childNode);
-            boxModelNode(childNode, offset.next_offset_level, childNode.properties.box_x, childNode.properties.box_y);
+            if (parent != null) {
+                if (childNode.properties.position == null) {
+                    childNode.properties.position = {x: 0, y: 0};
+                }
+                childNode.properties.position.x = offset.box_dwidth;
+                childNode.properties.position.y = offset.box_height * (keys.length - 1) / 2 - offset.box_height * i;
+            }
+
+            locateNode(childNode, node, offset.next_offset_level);
         }
     }
 }
 
-function buildBoxModel(key, properties, offset, box_parent_x, box_parent_y, node) {
 
-
-    properties.box_x = offset.box_x + box_parent_x;
-    properties.box_y = offset.box_y + box_parent_y;
-    bodyDef.position.x = (offset.box_x + box_parent_x) / 30;
-    bodyDef.position.y = (offset.box_y + box_parent_y) / 30;
-    fixDef.isSensor = false;
-    var body = world.CreateBody(bodyDef);
-    properties.body = body;
-
-    fixDef.shape = new b2PolygonShape;
-    context.font = offset.font;
-    var metrics = context.measureText(key);
-    fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth - 36 ) / 60, offset.box_height / 60);
-    body.CreateFixture(fixDef);
-    body.userData = {
-        key: key,
-        node: node,
-        constraint: {
-            x0: 0, y0: 0,
-            x1: 0, y1: 0,
-            dx: 0, dy: 0,
-        }
-    };
-}
-
-
-function renderNode(node, offset_level) {
+function renderNode(node, offset_level, outset) {
     var offset = offsets[offset_level];
+
     for (var key in node) {
         var childNode = node[key];
         if (key != "properties") {
@@ -87,25 +53,29 @@ function renderNode(node, offset_level) {
             if (childNode.properties.color) {
                 context.strokeStyle = childNode.properties.color;
             }
-            drawNode(key, childNode.properties, offset);
-            renderNode(childNode, offset.next_offset_level);
+            var childOutset = drawNode(key, childNode.properties, offset, outset);
+            renderNode(childNode, offset.next_offset_level, childOutset);
             context.restore();
         }
     }
 }
 
-function drawNode(key, properties, offset) {
+function drawNode(key, properties, offset, outset) {
 
     if (properties.color) {
         context.strokeStyle = properties.color;
     }
-    var position = properties.body.GetPosition();
+    var position = properties.position;
 
     context.lineWidth = offset.lineWidth;
     context.font = offset.font;
     var metrics = context.measureText(key);
     var width = metrics.width;
-    context.roundRect(position.x * 30, position.y * 30, width + offset.text_dwidth, offset.height, 13, false);
-    context.fillText(key, position.x * 30 - width / 2, position.y * 30 + offset.text_dy);
+
+    context.roundRect(outset.x + position.x, outset.y + position.y, width + offset.text_dwidth, offset.height, 13, false);
+    context.fillText(key, outset.x + position.x + offset.text_dwidth / 2, outset.y + position.y + offset.text_dy);
+
+    var childOutset = {x: outset.x + position.x, y: outset.y + position.y};
+    return childOutset;
 }
 

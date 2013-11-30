@@ -11,6 +11,9 @@
  */
 
 var mapdata1 = {
+    properties: {
+        position: {x: 0, y: 0},
+    },
     //root
     "奇思妙想": {
         properties: {
@@ -48,12 +51,11 @@ var mapdata1 = {
         }
     }
 }
-var mapdata= {
+var mapdata = {
     //root
     "奇思妙想": {
         properties: {
-            position: {x: 122, y: 210},
-            size: {height: 118, width: 205},
+            //            position: {x: 0, y: 0},
             color: "#0586ca"
         },
         //nodes
@@ -83,38 +85,40 @@ var mapdata= {
                 }
             },
             "let your imagination soar": {
+            },
+            "let your imagination soar1": {
             }
         },
         "产品测试": {},
         "产品测试1": {},
         "产品测试2": {},
-        "产品测试3": {}
-//        "产品测试": {
-//            properties: {
-//                color: "#000000"
-//            },
-//            "让想象力自由飞翔": {
-//            },
-//            "let your imagination soar": {
-//            },
-//            "产品测试": {
-//                properties: {
-//                    color: "#00ff00"
-//                },
-//                "让想象力自由飞翔": {
-//                },
-//                "let your imagination soar": {
-//                    "产品测试": {
-//                        properties: {
-//                            color: "#ff0000"
-//                        },
-//                        "让想象力自由飞翔": {
-//                        },
-//                        "let your imagination soar": {
-//                        }
-//                    }
-//                }
-//            }
-//        }
+        "产品测试3": {},
+        "产品测试": {
+            properties: {
+                color: "#000000"
+            },
+            "让想象力自由飞翔": {
+            },
+            "let your imagination soar": {
+            },
+            "产品测试": {
+                properties: {
+                    color: "#00ff00"
+                },
+                "让想象力自由飞翔": {
+                },
+                "let your imagination soar": {
+                    "产品测试": {
+                        properties: {
+                            color: "#ff0000"
+                        },
+                        "让想象力自由飞翔": {
+                        },
+                        "let your imagination soar": {
+                        }
+                    }
+                }
+            }
+        }
     }
 }

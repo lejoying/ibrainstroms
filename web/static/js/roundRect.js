@@ -1,6 +1,6 @@
 CanvasRenderingContext2D.prototype.roundRect = function (x, y, width, height, radius, fill, stroke) {
     y = y - height / 2;
-    x = x - width / 2;
+//    x = x - width / 2;
     if (typeof stroke == "undefined") {
         stroke = true;
     }
