@@ -1,73 +1,4 @@
-﻿var offsets = {
-    "level0": {
-        font: "bold 24px XX",
-        fontSize: 22,
-        text_dwidth: 118,
-
-        text_dx: -50,
-        text_dy: 10,
-
-        lineWidth: 4.5,
-        next_offset_level: "level1",
-        height: 118,
-
-        box_dwidth: 118 + 60,
-        box_height: 118 * 1.5,
-        box_x: 0,
-        box_y: 0,
-
-        box_parent_x: 0,
-        box_parent_y: 0
-    },
-    "level1": {
-        font: "bold 22px XX",
-        fontSize: 22,
-        text_dwidth: 50,
-
-        text_dx: -40,
-        text_dy: 9,
-
-        lineWidth: 2.5,
-        next_offset_level: "levelN",
-        height: 35,
-
-        box_dwidth: 50 + 20,
-        box_height: 35 * 1.36,
-        box_x: 280,
-        box_y: 0,
-
-        box_parent_x: 0,
-        box_parent_y: 0
-    },
-    "levelN": {
-        font: "bold 19px Arial",
-        fontSize: 19,
-        text_dwidth: 50,
-
-        text_dx: -36,
-        text_dy: 7,
-
-        lineWidth: 2.5,
-        next_offset_level: "levelN",
-        height: 35,
-
-        box_dwidth: 50 + 20,
-        box_height: 35 * 1.36,
-        box_x: 250,
-        box_y: 0,
-
-        box_parent_x: 0,
-        box_parent_y: 0
-    }
-};
-
-function renderMap() {
-    //    renderNode(mapdata, "level0");
-    boxModelNode(mapdata, "level0", 226, 269);
-}
-
-
-var b2Vec2 = Box2D.Common.Math.b2Vec2
+﻿var b2Vec2 = Box2D.Common.Math.b2Vec2
     , b2AABB = Box2D.Collision.b2AABB
     , b2BodyDef = Box2D.Dynamics.b2BodyDef
     , b2Body = Box2D.Dynamics.b2Body
@@ -80,6 +11,7 @@ var b2Vec2 = Box2D.Common.Math.b2Vec2
     , b2DebugDraw = Box2D.Dynamics.b2DebugDraw
     , b2ContactListener = Box2D.Dynamics.b2ContactListener
     , b2MouseJointDef = Box2D.Dynamics.Joints.b2MouseJointDef;
+
 var fixDef = new b2FixtureDef;
 fixDef.density = 0;
 fixDef.friction = 0.2;
@@ -88,6 +20,12 @@ var bodyDef = new b2BodyDef;
 bodyDef.type = b2Body.b2_dynamicBody;
 bodyDef.linearDamping = 20;
 bodyDef.angularDamping = Number.POSITIVE_INFINITY;
+
+
+function renderMap() {
+    //    renderNode(mapdata, "level0");
+    boxModelNode(mapdata, "level0", 226, 269);
+}
 
 function boxModelNode(node, offset_level, box_parent_x, box_parent_y) {
 
@@ -132,29 +70,11 @@ function buildBoxModel(key, properties, offset, box_parent_x, box_parent_y, node
         key: key,
         node: node,
         constraint: {
-            x0:0,y0:0,
-            x1:0,y1:0,
-            dx:0,dy:0,
+            x0: 0, y0: 0,
+            x1: 0, y1: 0,
+            dx: 0, dy: 0,
         }
     };
-    //    fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth ) / 60, (offset.box_height - 36) / 60);
-    //    body.CreateFixture(fixDef);
-
-    //    fixDef.shape = new b2CircleShape(offset.box_height / 60);
-
-
-    //    var vertex_R_B = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, (offset.box_height - 36) / 60);
-    //    var vertex_L_B = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, (offset.box_height - 36) / 60);
-    //    var vertex_R_T = new b2Vec2((metrics.width + offset.box_dwidth - 36) / 60, -(offset.box_height - 36) / 60);
-    //    var vertex_L_T = new b2Vec2(-(metrics.width + offset.box_dwidth - 36) / 60, -(offset.box_height - 36) / 60);
-    //    fixDef.shape.SetLocalPosition(vertex_R_B);
-    //    body.CreateFixture(fixDef);
-    //    fixDef.shape.SetLocalPosition(vertex_L_B);
-    //    body.CreateFixture(fixDef);
-    //    fixDef.shape.SetLocalPosition(vertex_R_T);
-    //    body.CreateFixture(fixDef);
-    //    fixDef.shape.SetLocalPosition(vertex_L_T);
-    //    body.CreateFixture(fixDef);
 }
 
 

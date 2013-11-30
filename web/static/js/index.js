@@ -10,7 +10,6 @@ function initialize() {
 }
 
 
-var nodeB;
 window.onload = initialize;
 //window.onresize = resizeWindow;
 function resizeWindow() {
@@ -20,26 +19,12 @@ function resizeWindow() {
     canvas.setAttribute('width', w);
     canvas.setAttribute('height', h);
     context.fillStyle = "#484848";
-
-    //        context.drawImage(image, 300, 80, 800, 506);
-
     context.strokeStyle = "#0099cd";
-    //    context.lineWidth = 2.5;
-    //    context.roundRect(825, 380, 205, 35, 13, false);
-    //    context.font = "bold 19px XX";
-    //    context.fillText("让想象力自由飞翔", 847, 404);
-
-
-    //    context.lineWidth =4.5;
-    //    context.roundRect(322, 210, 205, 118, 13, false);
-    //    context.font = "bold 24px XX";
-    //    context.fillText("奇思妙想", 375, 278);
     var b2Settings = Box2D.Common.b2Settings;
     b2Settings.b2_linearSlop = -0.005;
     renderMap();
 
 }
-var moveChildren1;
 var world;
 function initialize_box_2d() {
     var b2Vec2 = Box2D.Common.Math.b2Vec2
@@ -88,202 +73,16 @@ function initialize_box_2d() {
         constraint.y0 = nodeB.GetPosition().y;
 
         contactCounting++;
-        //        console.log("beginContact", contactCounting, contact);
     };
     function endContact(contact) {
-        var nodeA = contact.m_nodeA.other;
-        var constraint = nodeA.userData.constraint;
-        constraint.x1 = nodeA.GetPosition().x;
-        constraint.y1 = nodeA.GetPosition().y;
-
-        var dx = constraint.x1 - constraint.x0;
-        if (dx * dx > constraint.dx * constraint.dx) {
-            constraint.dx = dx;
-        }
-        var dy = constraint.y1 - constraint.y0;
-        if (dy * dy > constraint.dy * constraint.dy) {
-            constraint.dy = dy;
-        }
-
-
-        console.log("endContact", nodeA.userData.key, dx, dy);
-        //        moveChildren(nodeA);
-
-        var nodeB = contact.m_nodeB.other;
-        var constraint = nodeB.userData.constraint;
-        constraint.x1 = nodeB.GetPosition().x;
-        constraint.y1 = nodeB.GetPosition().y;
-
-        var dx = constraint.x1 - constraint.x0;
-        if (dx * dx > constraint.dx * constraint.dx) {
-            constraint.dx = dx;
-        }
-        var dy = constraint.y1 - constraint.y0;
-        if (dy * dy > constraint.dy * constraint.dy) {
-            constraint.dy = dy;
-        }
-        console.log("endContact", nodeB.userData.key, dx, dy);
-        //        moveChildren(nodeB);
-
-        contactCounting--;
-        //        console.log("endContact", contactCounting);
-        //        b2Settings.b2_linearSlop = 0.005;
-        if (contactCounting <= 0) {
-            b2World.e_locked = 1;
-            moveNode(mapdata);
-            console.log("调整位置");
-            b2World.e_locked = 2
-        }
     };
 
-    function moveNode(node) {
-        var constraint = {
-            x0: 0, y0: 0,
-            x1: 0, y1: 0,
-            dx: 0, dy: 0,
-        };
-        var body = null;
-        if (node.properties) {
-            if (node.properties.body) {
-                body = node.properties.body;
-                constraint = node.properties.body.userData.constraint;
-
-            }
-        }
-
-        if (!constraint.reverse_dx_s) {
-            constraint.reverse_dx_s = [];
-        }
-        if (!constraint.reverse_dy_s) {
-            constraint.reverse_dy_s = [];
-        }
-
-        for (var key in node) {
-            var childNode = node[key];
-            if (key != "properties") {
-
-                var childBody = childNode.properties.body;
-                childBody.SetPosition(new b2Vec2(childBody.GetPosition().x + constraint.dx, childBody.GetPosition().y + constraint.dy));
-                constraint.reverse_dx_s.push(childBody.userData.constraint.dx + 0);
-                constraint.reverse_dy_s.push(childBody.userData.constraint.dy + 0);
-                childBody.userData.constraint.dx += constraint.dx;
-                childBody.userData.constraint.dy += constraint.dy;
-                moveNode(childNode);
-            }
-        }
-
-        constraint.dx = 0;
-        constraint.dy = 0;
-        constraint.reverse_dx = average(constraint.reverse_dx_s);
-        constraint.reverse_dy = average(constraint.reverse_dy_s);
-        if (body) {
-            console.log("reverse调整位置:", body.userData.key, constraint.reverse_dx, constraint.reverse_dy);
-            body.SetPosition(new b2Vec2(body.GetPosition().x + constraint.reverse_dx, body.GetPosition().y + constraint.reverse_dy));
-        }
-        constraint.reverse_dx = [];
-        constraint.reverse_dy = [];
-    }
-
-    function average(array) {
-        if (array.length == 0) {
-            return 0;
-        }
-        var sum = 0;
-        for (var i = 0; i < array.length; i++) {
-            sum += array[i]
-        }
-        return sum / array.length;
-    }
-
-
-    function moveChildren(node) {
-        //        node.SetTransform(new b2Transform(new b2Vec2(100, 100), new b2Mat22()));
-        b2World.e_locked = 1;
-        var constraint = node.userData.constraint;
-        for (var key in node.userData.node) {
-            var childNode = node.userData.node[key];
-            if (key != "properties") {
-                var body = childNode.properties.body;
-                body.SetPosition(new b2Vec2(body.GetPosition().x + constraint.x1 - constraint.x0, body.GetPosition().y + constraint.y1 - constraint.y0));
-            }
-        }
-        //        nodeB = node;
-        //        node.SetPosition(new b2Vec2(5, 0));
-        b2World.e_locked = 2
-    }
-
-
-    function moveChildren2(node) {
-        //        node.SetTransform(new b2Transform(new b2Vec2(100, 100), new b2Mat22()));
-        console.log("move to ", node.GetPosition().x + 5, node.GetPosition().y + 0);
-        node.SetPosition(new b2Vec2(node.GetPosition().x + 5, node.GetPosition().y + 0));
-        node.SynchronizeFixtures();
-        nodeB = node;
-    }
-
-    moveChildren1 = moveChildren2;
 
 
     function preSolve(contact) {
-        //        contactCounting++;
-        //                console.log("preSolve",contactCounting);
     };
     function postSolve(contact) {
-        //        contactCounting++;
-        //                console.log("postSolve",contactCounting);
     };
-
-    var fixDef = new b2FixtureDef;
-    fixDef.density = 1.0;
-    fixDef.friction = 0.5;
-    fixDef.restitution = 0.0;
-    var bodyDef = new b2BodyDef;
-
-    //create ground
-    bodyDef.type = b2Body.b2_staticBody;
-
-
-    bodyDef.linearDamping = 5;
-
-    bodyDef.angularDamping = 20;
-
-    fixDef.shape = new b2PolygonShape;
-    fixDef.shape.SetAsBox(2000 / 30, 2);
-    //    bodyDef.position.Set(10, 600 / 30 + 1.8);//bottom
-    //    world.CreateBody(bodyDef).CreateFixture(fixDef);
-    //    bodyDef.position.Set(10, -1.8);//top
-    //    world.CreateBody(bodyDef).CreateFixture(fixDef);
-    //    fixDef.shape.SetAsBox(2, 600 / 30);
-    //    bodyDef.position.Set(-1.8, 13);//left
-    //    world.CreateBody(bodyDef).CreateFixture(fixDef);
-    //    bodyDef.position.Set(1500 / 30, 13);//right
-    //    world.CreateBody(bodyDef).CreateFixture(fixDef);
-
-    //
-    //    //create some objects
-    //    bodyDef.type = b2Body.b2_dynamicBody;
-    //    for (var i = 0; i < 10; ++i) {
-    //        if (Math.random() > 0.5) {
-    //            fixDef.shape = new b2PolygonShape;
-    //            fixDef.shape.SetAsBox(Math.random() + 0.1 //half width
-    //                , Math.random() + 0.1 //half height
-    //            );
-    //            fixDef.isSensor = false;
-    //        }
-    //        else {
-    //            fixDef.shape = new b2CircleShape(Math.random() + 0.1//radius
-    //            );
-    //            fixDef.isSensor = false;
-    //        }
-    //        bodyDef.position.x = Math.random() * 10;
-    //        bodyDef.position.y = Math.random() * 10;
-    //        world.CreateBody(bodyDef).CreateFixture(fixDef);
-    //    }
-    //
-    //    fixDef.shape = new b2PolygonShape;
-    //    fixDef.shape.SetAsBox(10, 10);
-    //    fixDef.isSensor = true;
-    //    world.CreateBody(bodyDef).CreateFixture(fixDef);
 
     //setup debug draw
     var debugDraw = new b2DebugDraw();
@@ -378,7 +177,6 @@ function initialize_box_2d() {
         world.Step(1 / 60, 10, 10);
         //        context.globalAlpha = 1;
         //        world.DrawDebugData();
-        //        console.log(world.m_bodyList.GetPosition().y)
         renderNode(mapdata, "level0");
 
         //        context.globalAlpha = 0.2;
@@ -388,7 +186,6 @@ function initialize_box_2d() {
 
     //helpers
 
-    //http://js-tut.aardon.de/js-tut/tutorial/position.html
     function getElementPosition(element) {
         var elem = element, tagname = "", x = 0, y = 0;
 
