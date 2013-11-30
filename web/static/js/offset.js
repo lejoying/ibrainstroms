@@ -11,7 +11,7 @@
         next_offset_level: "level1",
         height: 118,
 
-        box_dwidth: 320,
+        box_dwidth: 1000,
         box_height: 118 * 1.5,
         box_x: 0,
         box_y: 0,
@@ -31,7 +31,7 @@
         next_offset_level: "levelN",
         height: 35,
 
-        box_dwidth: 280,
+        box_dwidth: 80,
         box_height: 35 * 1.36,
         box_x: 280,
         box_y: 0,
@@ -51,7 +51,7 @@
         next_offset_level: "levelN",
         height: 35,
 
-        box_dwidth: 200,
+        box_dwidth: 80,
         box_height: 35 * 1.36,
         box_x: 250,
         box_y: 0,

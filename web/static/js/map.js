@@ -29,14 +29,18 @@ function locateNode(node, parent, offset_level) {
             if (childNode.properties == null) {
                 childNode.properties = {position: {x: 0, y: 0}};
             }
+            context.font = offset.font;
+            var metrics = context.measureText(key);
+            childNode.properties.textWidth = metrics.width;
+            childNode.properties.boxWidth = metrics.width + offset.text_dwidth;
             if (parent != null) {
+
                 if (childNode.properties.position == null) {
                     childNode.properties.position = {x: 0, y: 0};
                 }
-                childNode.properties.position.x = offset.box_dwidth;
+                childNode.properties.position.x = node.properties.boxWidth + offset.box_dwidth;
                 childNode.properties.position.y = offset.box_height * (keys.length - 1) / 2 - offset.box_height * i;
             }
-
             locateNode(childNode, node, offset.next_offset_level);
         }
     }
@@ -69,10 +73,8 @@ function drawNode(key, properties, offset, outset) {
 
     context.lineWidth = offset.lineWidth;
     context.font = offset.font;
-    var metrics = context.measureText(key);
-    var width = metrics.width;
 
-    context.roundRect(outset.x + position.x, outset.y + position.y, width + offset.text_dwidth, offset.height, 13, false);
+    context.roundRect(outset.x + position.x, outset.y + position.y, properties.textWidth + offset.text_dwidth, offset.height, 13, false);
     context.fillText(key, outset.x + position.x + offset.text_dwidth / 2, outset.y + position.y + offset.text_dy);
 
     var childOutset = {x: outset.x + position.x, y: outset.y + position.y};
