@@ -61,31 +61,34 @@ var mapdata= {
             properties: {
                 color: "#02ae42"
             },
-//            "云端存储": {
-//            },
-//            "协同编辑": {
-//                properties: {
-//                    color: "#ef0000"
-//                }
-//            },
-//            "演示文档": {
-//            },
-//            "组件分享": {
-//            }
+            "云端存储": {
+            },
+            "协同编辑": {
+                properties: {
+                    color: "#ef0000"
+                }
+            },
+            "演示文档": {
+            },
+            "组件分享": {
+            }
         },
         "产品价值": {
             properties: {
                 color: "#0586ca"
             },
-//            "让想象力自由飞翔": {
-//                properties: {
-//                    color: "#000000"
-//                }
-//            },
-//            "let your imagination soar": {
-//            }
+            "让想象力自由飞翔": {
+                properties: {
+                    color: "#000000"
+                }
+            },
+            "let your imagination soar": {
+            }
         },
-        "产品测试": {}
+        "产品测试": {},
+        "产品测试1": {},
+        "产品测试2": {},
+        "产品测试3": {}
 //        "产品测试": {
 //            properties: {
 //                color: "#000000"

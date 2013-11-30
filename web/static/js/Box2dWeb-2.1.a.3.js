@@ -3697,7 +3697,7 @@ Box2D.postDefs = [];
       Box2D.Common.b2Settings.b2_aabbExtension = 0.1;
       Box2D.Common.b2Settings.b2_aabbMultiplier = 2.0;
       Box2D.Common.b2Settings.b2_polygonRadius = 2.0 * b2Settings.b2_linearSlop;
-      Box2D.Common.b2Settings.b2_linearSlop = -0.005;
+      Box2D.Common.b2Settings.b2_linearSlop = 0.005;
       Box2D.Common.b2Settings.b2_angularSlop = 2.0 / 180.0 * b2Settings.b2_pi;
       Box2D.Common.b2Settings.b2_toiSlop = 8.0 * b2Settings.b2_linearSlop;
       Box2D.Common.b2Settings.b2_maxTOIContactsPerIsland = 32;
@@ -4130,7 +4130,9 @@ Box2D.postDefs = [];
       if (r === undefined) r = null;
       if (pos) {
          this.position.SetV(pos);
-         this.R.SetM(r);
+          if(r){
+              this.R.SetM(r);
+          }
       }
    }
    b2Transform.prototype.Initialize = function (pos, r) {

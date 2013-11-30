@@ -106,13 +106,13 @@ function boxModelNode(node, offset_level, box_parent_x, box_parent_y) {
             if (childNode.properties == null) {
                 childNode.properties = {};
             }
-            buildBoxModel(key, childNode.properties, offset, box_parent_x, box_parent_y);
+            buildBoxModel(key, childNode.properties, offset, box_parent_x, box_parent_y, childNode);
             boxModelNode(childNode, offset.next_offset_level, childNode.properties.box_x, childNode.properties.box_y);
         }
     }
 }
 
-function buildBoxModel(key, properties, offset, box_parent_x, box_parent_y) {
+function buildBoxModel(key, properties, offset, box_parent_x, box_parent_y, node) {
 
 
     properties.box_x = offset.box_x + box_parent_x;
@@ -128,7 +128,15 @@ function buildBoxModel(key, properties, offset, box_parent_x, box_parent_y) {
     var metrics = context.measureText(key);
     fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth - 36 ) / 60, offset.box_height / 60);
     body.CreateFixture(fixDef);
-    body.userData=key;
+    body.userData = {
+        key: key,
+        node: node,
+        constraint: {
+            x0:0,y0:0,
+            x1:0,y1:0,
+            dx:0,dy:0,
+        }
+    };
     //    fixDef.shape.SetAsBox((metrics.width + offset.box_dwidth ) / 60, (offset.box_height - 36) / 60);
     //    body.CreateFixture(fixDef);
 
