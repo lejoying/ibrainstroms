@@ -22,10 +22,10 @@ function resizeWindow() {
     context.strokeStyle = "#0099cd";
     var b2Settings = Box2D.Common.b2Settings;
     b2Settings.b2_linearSlop = -0.005;
-    locateNode(mapdata, null, "level0");
-
+    initializeMap();
 }
 var world;
+
 function initialize_box_2d() {
     var b2Vec2 = Box2D.Common.Math.b2Vec2
         , b2AABB = Box2D.Collision.b2AABB
@@ -47,41 +47,7 @@ function initialize_box_2d() {
     world = new b2World(new b2Vec2(0, 0)    //gravity
         , true                 //allow sleep
     );
-
-
-    //Listener
-
-    var contactListener = new b2ContactListener();
-    contactListener.BeginContact = beginContact;
-    contactListener.EndContact = endContact;
-    contactListener.PreSolve = preSolve;
-    contactListener.PostSolve = postSolve;
-    world.SetContactListener(contactListener);
-
-    var contactCounting = 0;
-
-    function beginContact(contact) {
-        var nodeA = contact.m_nodeA.other;
-        var constraint = nodeA.userData.constraint;
-        constraint.x0 = nodeA.GetPosition().x;
-        constraint.y0 = nodeA.GetPosition().y;
-
-
-        var nodeB = contact.m_nodeB.other;
-        var constraint = nodeB.userData.constraint;
-        constraint.x0 = nodeB.GetPosition().x;
-        constraint.y0 = nodeB.GetPosition().y;
-
-        contactCounting++;
-    };
-    function endContact(contact) {
-    };
-
-
-    function preSolve(contact) {
-    };
-    function postSolve(contact) {
-    };
+    app.world = world;
 
     //setup debug draw
     var debugDraw = new b2DebugDraw();
@@ -175,8 +141,9 @@ function initialize_box_2d() {
 
         world.Step(1 / 60, 10, 10);
         //        context.globalAlpha = 1;
-        //        world.DrawDebugData();
-        renderNode(mapdata, "level0", transform);
+//        world.DrawDebugData();
+        resolveConflict();
+        renderNode(mapdata, "level0", rootOutset);
 
         //        context.globalAlpha = 0.2;
         //        context.drawImage(image, 100, 80, 800, 506);

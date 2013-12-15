@@ -1,7 +1,17 @@
-﻿var transform = {
+﻿var rootOutset = {
     x: 50,
-    y: 340
+    y: 340,
+    resolving: false
 }
+
+function initializeMap() {
+    locateNode(mapdata, null, "level0");
+    preLCA(mapdata);
+
+    initializeBox2DModel();
+    buildBoxModel(mapdata, "level0", rootOutset);
+}
+
 function locateNode(node, parent, offset_level) {//offset_level here is for node's children.
     var offset = offsets[offset_level];
 
@@ -18,9 +28,6 @@ function locateNode(node, parent, offset_level) {//offset_level here is for node
     if (node.properties.position == null) {
         node.properties.position = {x: 0, y: 0};
     }
-    //    if (node.properties.level == null) {
-    //        node.properties.level = 0;
-    //    }
 
     var key;
     var childNode;
@@ -39,10 +46,6 @@ function locateNode(node, parent, offset_level) {//offset_level here is for node
         childNode.properties.textWidth = metrics.width;
         childNode.properties.boxWidth = metrics.width + offset.text_dwidth;
 
-        //            childNode.properties.parent = node;//for lca algorithm
-        //            childNode.properties.level = node.properties.level + 1;//for lca algorithm
-        //            childNode.properties.key = key;//for lca algorithm
-
         if (parent != null) {
 
             if (childNode.properties.position == null) {
@@ -54,7 +57,6 @@ function locateNode(node, parent, offset_level) {//offset_level here is for node
         locateNode(childNode, node, offset.next_offset_level);
     }
 }
-
 
 function renderNode(node, offset_level, outset) {
     var offset = offsets[offset_level];
@@ -86,8 +88,17 @@ function drawNode(key, properties, offset, outset) {
 
     context.roundRect(outset.x + position.x, outset.y + position.y, properties.textWidth + offset.text_dwidth, offset.height, 13, false);
     context.fillText(key, outset.x + position.x + offset.text_dwidth / 2, outset.y + position.y + offset.text_dy);
+//    context.fillText(properties.uniqueID, outset.x + position.x + offset.text_dwidth / 2, outset.y + position.y + offset.text_dy);
 
-    var childOutset = {x: outset.x + position.x, y: outset.y + position.y};
+    var resolving = false;
+    if (properties.resolving || outset.resolving) {
+        var boxPosition = new Box2D.Common.Math.b2Vec2((outset.x + position.x + (properties.textWidth + offset.text_dwidth) / 2) / 30, (outset.y + position.y) / 30);
+        properties.body.SetPosition(boxPosition);
+        resolving = true;
+        properties.resolving = false;
+    }
+
+    var childOutset = {x: outset.x + position.x, y: outset.y + position.y, resolving: resolving};
     return childOutset;
 }
 
