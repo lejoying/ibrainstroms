@@ -56,18 +56,18 @@ var mapdata = {
     "奇思妙想": {
         properties: {
             //            position: {x: 0, y: 0},
-            color: "#0586ca"
+            color: "#0099cd"
         },
         //nodes
         "产品功能": {
             properties: {
-                color: "#02ae42"
+                color: "#92d400"
             },
             "云端存储": {
             },
             "协同编辑": {
                 properties: {
-                    color: "#ef0000"
+                    color: "#d0103a"
                 }
             },
             "演示文档": {
@@ -77,11 +77,11 @@ var mapdata = {
         },
         "产品价值": {
             properties: {
-                color: "#0586ca"
+                color: "#0088ce"
             },
             "让想象力自由飞翔": {
                 properties: {
-                    color: "#000000"
+                    color: "#ff6e00"
                 }
             },
             "let your imagination soar": {
@@ -94,7 +94,7 @@ var mapdata = {
         "产品测试3": {},
         "产品测试区": {
             properties: {
-                color: "#000000"
+                color: "#6e2585"
             },
             "让想象力自由飞翔": {
                 "产品测试1": {
@@ -108,7 +108,7 @@ var mapdata = {
             },
             "产品测试4": {
                 properties: {
-                    color: "#00ff00"
+                    color: "#00af3f"
                 },
                 "让想象力自由飞翔": {
                     "产品测试8": {
@@ -121,7 +121,7 @@ var mapdata = {
                 "let your imagination soar": {
                     "产品测试7": {
                         properties: {
-                            color: "#ff0000"
+                            color: "#d0103a"
                         },
                         "让想象力自由飞翔": {
                         },
