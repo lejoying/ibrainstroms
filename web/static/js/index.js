@@ -137,11 +137,21 @@ function initialize_box_2d() {
         }
         var h = window.innerHeight - 52 - 3;
         var w = window.innerWidth - 0 - 2;
+        context.setTransform(1, 0, 0, 1, 0, 0);
         context.clearRect(0, 0, w, h);
 
         world.Step(1 / 60, 10, 10);
         //        context.globalAlpha = 1;
         //        world.DrawDebugData();
+        //        context.setTransform();
+//        context.setTransform(1, 0, 0, 1, -e_scale, -f_scale);
+        //        context.transform(a, 0, 0, a, 0, 0);
+        //        context.transform(1, 0, 0, 1, a * e_scale, a * f_scale);
+
+        context.translate(e_scale,f_scale);
+        context.scale(a,a);
+        context.translate(-e_scale,-f_scale);
+
         resolveConflict();
         renderNode(mapdata, null, "level0", rootOutset);
 
@@ -172,4 +182,17 @@ function initialize_box_2d() {
         return {x: x, y: y};
     }
 
+    var a = 1, b = 0, c = 0, d = 1, e = 0, f = 0;
+    var e_scale = 0, f_scale = 0;
+    var scaleMatrix = [a, 0, 0, d, 0, 0];
+    var translateMatrix = [1, 0, 0, 1, e, f];
+    $('.myCanvas').mousewheel(function (event) {
+
+        a = a*(1+event.deltaY * 0.045);
+        e_scale = (event.clientX - canvasPosition.x);
+        f_scale = (event.clientY - canvasPosition.y);2
+        console.log(event.deltaX, event.deltaY, event.deltaFactor, e_scale, f_scale);
+    });
+
 };
+

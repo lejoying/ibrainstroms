@@ -1,6 +1,8 @@
 ﻿var rootOutset = {
     x: 50 + 64,
     y: 340 - 75,
+    //    x: 0,
+    //    y: 0,
     resolving: false
 }
 

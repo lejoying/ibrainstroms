@@ -1,13 +1,15 @@
 body {
     display: block;
     margin: 0px;
+    position: relative;
 }
 
 header {
-    background: #69d2e7;
-    color: #b1e6f0;
+    background: #f6f6f6;
+    color: #0099cd;
     height: 50px;
     position: relative;
+    -webkit-box-shadow: 0 0 15px rgba(40, 173, 243, 0.98);
 }
 
 h1 {
@@ -35,7 +37,7 @@ h1 {
 }
 
 .myCanvas {
-    border: 1px solid #000000;
+    /*border: 1px solid #000000;*/
 }
 
 .hide {
