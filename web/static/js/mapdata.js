@@ -12,13 +12,13 @@
 
 var mapdata1 = {
     properties: {
-        position: {x: 0, y: 0},
+        position: {x: 0, y: 0}
     },
     //root
     "奇思妙想": {
         properties: {
             position: {x: 122, y: 210},
-            size: {height: 118, width: 205},
+            size: {height: 118, width: 205}
             //            color: "#0586ca"
         },
         //nodes
