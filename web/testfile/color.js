@@ -6,13 +6,13 @@ $(document).ready(function() {
         $("#" + controlId).bind("click", OnDocumentClick);
     }
 //<div id="colorpanel" style="position:absolute;display:none;width:253px;height:177px;"></div> 在页面中加载此HTML
-    var ColorHex = new Array('00', '33', '66', '99', 'CC', 'FF')
-    var SpColorHex = new Array('FF0000', '00FF00', '0000FF', 'FFFF00', '00FFFF', 'FF00FF')
-    var current = null
+    var ColorHex = new Array('00', '33', '66', '99', 'CC', 'FF');
+    var SpColorHex = new Array('FF0000', '00FF00', '0000FF', 'FFFF00', '00FFFF', 'FF00FF');
+    var current = null;
 
 //初始化调色板
     function initPanel() {
-        var colorTable = ''
+        var colorTable = '';
         for (var i = 0; i < 2; i++) {
             for (var j = 0; j < 6; j++) {
                 colorTable = colorTable + '<tr style="height:12px;">'
