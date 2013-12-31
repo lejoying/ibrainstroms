@@ -69,7 +69,7 @@ $(document).ready(function () {
 
     })(jQuery);
 
-    //树状菜单
+    //展示树状菜单
     $(function(){
         $("#btn_bianli").click(function(){
             var showlist=$("<ul></ul>");
@@ -88,5 +88,4 @@ $(document).ready(function () {
             }
         }
     }
-
 });

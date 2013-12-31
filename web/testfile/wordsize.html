@@ -1,0 +1,56 @@
+﻿<html>
+<head>
+    <style type="text/css">
+        #content {
+            font-size: 12px;
+            line-height: 200%;
+            padding: 10px;
+        }
+    </style>
+    <script language="javascript">
+        //更改字体大小
+        var status0 = '';
+        var curfontsize = 10;
+        var curlineheight = 18;
+        function turnsmall() {
+            if (curfontsize > 10) {
+                document.getElementById('art_content').style.fontSize = (--curfontsize) + 'pt';
+                document.getElementById('art_content').style.lineHeight = (--curlineheight) + 'pt';
+            }
+        }
+        function turnbig() {
+            if (curfontsize < 30) {
+                document.getElementById('art_content').style.fontSize = (++curfontsize) + 'pt';
+                document.getElementById('art_content').style.lineHeight = (++curlineheight) + 'pt';
+            }
+        }
+    </script>
+    <!--变粗体，斜体-->
+    <script>
+        function bold()
+        {
+            if(document.getElementById('art_content').style.fontWeight=="bold")
+                document.getElementById('art_content').style.fontWeight="";
+            else
+                document.getElementById('art_content').style.fontWeight="bold";
+
+        }
+        function italics()
+        {
+            if(document.getElementById('art_content').style.fontStyle=="italic")
+                document.getElementById('art_content').style.fontStyle="";
+            else
+                document.getElementById('art_content').style.fontStyle="italic";
+
+        }
+    </script>
+
+</head>
+<body>
+<a href="javascript:turnbig()">增大</a> <a href="javascript:turnsmall()">减小</a>
+<a href="javascript:bold()">粗体</a> <a href="javascript:italics()">斜体</a>
+　　<div id="art_content">
+    　　这里是文字，查看效果
+    　　</div>
+</body>
+</html>

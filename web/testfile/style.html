@@ -1,0 +1,92 @@
+﻿<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>样式列表</title>
+    <STYLE>
+        BODY {font-size: 8pt; font-family: Arial;}
+        .datahead {border-left:1 solid none #909090; border-right:1 solid none #303030; border-top:1 solid none #909090; border-bottom:1 solid none #303030; font-size: 8pt; font-family: Arial; background-color: #505050; color: #FFFFFF; }
+        .dataitem {border-left:1 solid none #CFCFCF; border-right:1 solid none #505050; border-top:1 solid none #CFCFCF; border-bottom:1 solid none #505050; font-size: 8pt; font-family: Arial; background-color: #C0C0C0; color: #000000; }
+    </STYLE>
+</head>
+<body>
+<SCRIPT>
+    function fnSetData(){
+        for(var i=1;i<oData.rows.length;i++)
+        {
+            var oWorkRow=oData.rows(i);
+            oWorkRow.cells(1).innerText=eval("oScratch.style." + oWorkRow.cells(0).innerText);
+            oWorkRow.cells(2).innerText=eval("oScratch.runtimeStyle." + oWorkRow.cells(0).innerText);
+            oWorkRow.cells(3).innerText=eval("oScratch.currentStyle." + oWorkRow.cells(0).innerText);
+        }
+    }
+    function fnChangeStyle(oStyle,sValue){
+        if(sValue.indexOf("CLEAR")>-1){
+            sValue="";
+        }
+        eval("oScratch.runtimeStyle." + oStyle + "='" + sValue + "'");
+        fnSetData();
+    }
+    function fnInit(){
+        fnSetData();
+    }
+    window.onload = fnInit;
+</SCRIPT>
+<H1>特效</H1>
+<DIV ID="oScratch" STYLE="border: '5 solid'; border-color: #101010; background-color: #CFCFCF; color: #000000; font-size: 40pt; font-family: 'Arial';">aaaaa</DIV>
+
+<TABLE ID="oData">
+    <TR>
+        <TD CLASS="datahead">CSS Property</TD>
+        <TD CLASS="datahead">style</TD>
+        <TD CLASS="datahead">runtimeStyle</TD>
+        <TD CLASS="datahead">currentStyle</TD>
+        <TD CLASS="datahead"><b>Select a Value</b></TD>
+    </TR>
+    <TR>
+        <TD CLASS="dataitem">背景颜色</TD>
+        <TD CLASS="dataitem"></TD>
+        <TD CLASS="dataitem"></TD>
+        <TD CLASS="dataitem"></TD>
+        <TD CLASS="dataitem"><SELECT CLASS="dataitem"  onchange="fnChangeStyle('backgroundColor',this.options(this.selectedIndex).text)">
+            <OPTION>Indigo</OPTION>
+            <OPTION>MistyRose</OPTION>
+            <OPTION>MediumOrchid</OPTION>
+            <OPTION>Pink</OPTION>
+            <OPTION>Yellow</OPTION>
+            <OPTION>CLEAR THIS RUNTIME STYLE</OPTION>
+        </SELECT>
+        </td>
+    </TR>
+    <TR>
+        <TD CLASS="dataitem">边框颜色</TD>
+        <TD CLASS="dataitem"></TD>
+        <TD CLASS="dataitem"></TD>
+        <TD CLASS="dataitem"></TD>
+        <TD CLASS="dataitem"><SELECT CLASS="dataitem"  onchange="fnChangeStyle('borderColor',this.options(this.selectedIndex).text)">
+            <OPTION>Red</OPTION>
+            <OPTION>Green</OPTION>
+            <OPTION>Blue</OPTION>
+            <OPTION>Yellow</OPTION>
+            <OPTION>CLEAR THIS RUNTIME STYLE</OPTION>
+        </SELECT>
+        </td>
+    </TR>
+    <TR>
+        <TD CLASS="dataitem">字体颜色</TD>
+        <TD CLASS="dataitem"></TD>
+        <TD CLASS="dataitem"></TD>
+        <TD CLASS="dataitem"></TD>
+        <TD CLASS="dataitem"><SELECT CLASS="dataitem"  onchange="fnChangeStyle('color',this.options(this.selectedIndex).text)">
+            <OPTION>Red</OPTION>
+            <OPTION>White</OPTION>
+            <OPTION>Blue</OPTION>
+            <OPTION>Yellow</OPTION>
+            <OPTION>Silver</OPTION>
+            <OPTION>Gold</OPTION>
+            <OPTION>CLEAR THIS RUNTIME STYLE</OPTION>
+        </SELECT>
+        </td>
+    </TR>
+</TABLE>
+</body>
+</html>

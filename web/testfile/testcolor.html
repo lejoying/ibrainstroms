@@ -43,20 +43,59 @@
 <script src="\static\js\Box2dWeb-2.1.a.3.js"></script>
 <script src="\static\js\jquery.min.js"></script>
 <script src="\static\js\jquery.mousewheel.js"></script>
-
 <script src="\static\js\app.js"></script>
-
-
 <script src="\static\js\roundRect.js"></script>
 <script src="\static\js\offset.js"></script>
 <script src="\static\js\map.js"></script>
 <script src="\static\js\lca.js"></script>
 <script src="\static\js\boxModel.js"></script>
-
 <script src="\static\js\index.js"></script>
 <script src="\static\js\mapdata.js"></script>
 -->
-
-
+<!--设置按钮（没有选择任何节点）-->
+<div>
+名称：<input type="text" id="file_name">
+背景颜色：<input type="button" id="background_color"value="设置">
+影子：<input type="radio"name="select" value="with">有
+      <input type="radio" name="select" value="without" checked="checked">无
+样式：
+</div>
+<!--设置（选择根节点）-->
+<div>
+文本：
+    字号：
+    粗体：
+    斜体：
+    颜色（字体颜色）：
+图片：（图片更改框的样式）：
+</div>
+<!--设置（选择子节点）-->
+<div>
+图标：（各种小图标放到线上位置）：
+分支：
+    分支框（表示有无分支框）：
+    形式（折叠、展开）：
+    颜色（线和框的颜色）：
+    填充颜色（框内背景色）：
+    分支框样式（圆形，菱形等的图片）：
+文本：
+    字号：
+    粗体：
+    斜体：
+    颜色（字体颜色）：
+边界线：
+    无：边界线选项
+    有：边界线选项
+        线条颜色
+        填充色
+        样式（三个均控制条进行控制）：
+            填充（填充范围大小）
+            幅度（填充线的弧度）
+            频率（线的转折度）
+</div>
+<!--展示-->
+<div>
+    展示树状菜单，可折叠、展开
+</div>
 </body>
 </html>
