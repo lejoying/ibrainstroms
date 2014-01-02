@@ -9,19 +9,19 @@
     </style>
     <script language="javascript">
         //更改字体大小
-        var status0 = '';
-        var curfontsize = 10;
-        var curlineheight = 18;
-        function turnsmall() {
-            if (curfontsize > 10) {
-                document.getElementById('art_content').style.fontSize = (--curfontsize) + 'pt';
-                document.getElementById('art_content').style.lineHeight = (--curlineheight) + 'pt';
+        //var status0 = '';
+       // var curfontsize = 12;
+        var curFontSize=document.getElementById("art_content").style.fontSize;
+        alert(curFontSize);
+        function turnSmall() {
+            if (curfontsize > 1 ) {
+                document.getElementById('art_content').style.fontSize = (--curFontSize);
             }
         }
-        function turnbig() {
+        function turnBig() {
             if (curfontsize < 30) {
-                document.getElementById('art_content').style.fontSize = (++curfontsize) + 'pt';
-                document.getElementById('art_content').style.lineHeight = (++curlineheight) + 'pt';
+                document.getElementById('art_content').style.fontSize = (++curFontSize);
+
             }
         }
     </script>
@@ -49,7 +49,7 @@
 <body>
 <a href="javascript:turnbig()">增大</a> <a href="javascript:turnsmall()">减小</a>
 <a href="javascript:bold()">粗体</a> <a href="javascript:italics()">斜体</a>
-　　<div id="art_content">
+　　<div id="art_content" style="font-size:15pt">
     　　这里是文字，查看效果
     　　</div>
 </body>

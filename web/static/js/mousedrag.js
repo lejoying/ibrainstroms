@@ -71,7 +71,7 @@ $(document).ready(function () {
 
     //展示树状菜单
     $(function(){
-        $("#btn_bianli").click(function(){
+        $("#menu").click(function(){
             var showlist=$("<ul></ul>");
             showall(menulist.menulist,showlist);
             $("#div_menu").append(showlist);

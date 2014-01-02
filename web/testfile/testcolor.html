@@ -1,29 +1,11 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="\static\css\index.css">
-    <!--<SCRIPT language=javascript type=text/javascript>
-        function changeBGcolor1(whattoselect1){
-            var color3=ColorPanel1.ChooseColorDlg();
-            textAout1.style.backgroundColor=color3;
-        }
-        function changeFcolor1(whatFtosel1){
-            var color4=ColorPanel1.ChooseColorDlg();
-            textAout1.style.color=color4;
-        }
-    </SCRIPT>-->
+    <link rel="stylesheet" href="..\static\css\index.css">
 </head>
 <body>
 <header class="hide1">
-    <img class="logo" src="static/images/images_logo.png" />
-    <div>
-    <input type="button" value="云端分享" >
-    <input type="button" value="协同编辑" >
-    <input type="button" value="演示文档" >
-    <input type="button" value="组件分享" >
-    <input type="button" value="设置" >
-    <input type="button" value="显示" >
-    </div>
+    <img class="logo" src="../static/images/images_logo.png" />
     <!--<div class="title">-->
         <!--奇思妙想-->
     <!--</div>-->
@@ -32,12 +14,9 @@
     <canvas class="myCanvas" id="myCanvas">
         Your browser does not support the HTML5 canvas tag.
     </canvas>
-</div>
-    　　<div id="colorpanel"style="position:absolute;display:none;width:253px;height:177px;">
-    <input type="button" id="test" value="测试调色板">
-    </div>
-<script src="\testfile\color.js"></script>
-<script src="..\static\js\jquery.min.js"></script>
+</div> 　　
+<script src="../testfile/color.js"></script>
+<script src="../static/js/jquery.min.js"></script>
 
 <!--
 <script src="\static\js\Box2dWeb-2.1.a.3.js"></script>
@@ -52,50 +31,82 @@
 <script src="\static\js\index.js"></script>
 <script src="\static\js\mapdata.js"></script>
 -->
+<div>
+    <input type="button" value="云端分享" >
+    <input type="button" value="协同编辑" >
+    <input type="button" value="演示文档" >
+    <input type="button" value="组件分享" >
+    <input type="button" value="设置" >
+    <input type="button" value="显示" >
+    <input type="button" id="test" value="测试调色板">
+</div>
 <!--设置按钮（没有选择任何节点）-->
-<div>
-名称：<input type="text" id="file_name">
-背景颜色：<input type="button" id="background_color"value="设置">
+<div class="setting_file" >
+名称：<input type="text" id="file_name"><br>
+背景颜色：<input type="button" id="background_color"value="设置"><br>
 影子：<input type="radio"name="select" value="with">有
-      <input type="radio" name="select" value="without" checked="checked">无
-样式：
+      <input type="radio" name="select" value="without" checked="checked">无<br>
+样式：<br>
 </div>
+<hr>
 <!--设置（选择根节点）-->
-<div>
-文本：
-    字号：
-    粗体：
-    斜体：
-    颜色（字体颜色）：
-图片：（图片更改框的样式）：
+<div class="setting_parentNode">
+文本：<br>
+    字号：<input type="text"id="word_size"><button>+</button><button>-</button><br>
+    粗体：<input type="radio"name="bold" value="with">有
+    <input type="radio" name="bold" value="without" checked="checked">无<br>
+    斜体：<input type="radio"name="italics" value="with">有
+    <input type="radio" name="italics" value="without" checked="checked">无<br>
+    颜色（字体颜色）：<input type="button" id="color" value="选择"><br>
+图片：（图片更改框的样式）：<br>
 </div>
+<hr>
 <!--设置（选择子节点）-->
-<div>
-图标：（各种小图标放到线上位置）：
-分支：
+<div class="setting_childNode">
+图标：（各种小图标放到线上位置）：<br>
+    <hr>
+分支：<br>
     分支框（表示有无分支框）：
+    <input type="radio"name="bobranch_box" value="with">有
+    <input type="radio" name="bobranch_box" value="without" checked="checked">无<br>
     形式（折叠、展开）：
-    颜色（线和框的颜色）：
-    填充颜色（框内背景色）：
-    分支框样式（圆形，菱形等的图片）：
+    <input type="radio"name="shape" value="with">折叠
+    <input type="radio" name="shape" value="without" checked="checked">展开<br>
+    颜色（线和框的颜色）：<input type="button" id="color1" value="选择"><br>
+    填充颜色（框内背景色）：<input type="button" id="color2" value="选择"><br>
+    分支框样式（圆形，菱形等的图片）：<br>
+    <hr>
 文本：
-    字号：
-    粗体：
-    斜体：
-    颜色（字体颜色）：
-边界线：
-    无：边界线选项
-    有：边界线选项
-        线条颜色
-        填充色
-        样式（三个均控制条进行控制）：
-            填充（填充范围大小）
-            幅度（填充线的弧度）
-            频率（线的转折度）
+    字号：<input type="text"id="word_size1"><button>+</button><button>-</button><br>
+    粗体：<br>
+    <input type="radio"name="bold1" value="with">有
+    <input type="radio" name="bold1" value="without" checked="checked">无<br>
+    斜体：<br>
+    <input type="radio"name="italics1" value="with">有
+    <input type="radio" name="italics1" value="without" checked="checked">无<br>
+    颜色（字体颜色）：<input type="button" id="color3" value="选择"><br>
+    <hr>
+边界线：<br>
+    无：边界线选项<br>
+    <input type="radio" name="border" value="without" checked="checked">无
+    <input type="radio"name="border" value="with">有<br>
+    <br>
+    <hr>
+    有：边界线选项<br>
+    <input type="radio" name="border1" value="without">无
+    <input type="radio"name="border1" value="with"  checked="checked">有<br>
+        线条颜色:<input type="button" id="color4" value="选择"><br>
+        填充色:<input type="button" id="color5" value="选择"><br>
+        样式（三个均控制条进行控制）：<br>
+            填充（填充范围大小）<br>
+            幅度（填充线的弧度）<br>
+            频率（线的转折度）<br>
 </div>
-<!--展示-->
-<div>
-    展示树状菜单，可折叠、展开
+<hr>
+<!--展示菜单-->
+<div class="menu">
+    展示树状菜单，可折叠、展开<br>
+    <input type="button" id="menu" value="菜单">
 </div>
 </body>
 </html>

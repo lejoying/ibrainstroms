@@ -133,3 +133,21 @@ var mapdata = {
         }
     }
 }
+$(function(){
+    $("#menu").click(function(){
+        var showlist=$("<ul></ul>");
+        showall(mapdata.menulist,showlist);
+        $("#div_menu").append(showlist);
+    });
+});
+function showall(menu_list,parent){
+    for(var menu in menu_list){
+        if(menu_list[menu].menulist.Length>0){
+            var li=$("<li></li>");
+            $(li).append(menu_list[menu].NAME).append("<ul></ul>").appendTo(parent);
+            showall(menu_list[menu].menulist,$(li).children().eq(0));
+        }else{
+            $("<li></li>").append(menu_list[menu].NAME).appendTo(parent);
+        }
+    }
+}
